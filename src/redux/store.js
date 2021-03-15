@@ -18,13 +18,13 @@ const trackersPersistConfig = {
 };
 
 const store = configureStore({
-    reducer: { trackers: persistReducer(trackersPersistConfig, reducer) },
+    reducer: { app: persistReducer(trackersPersistConfig, reducer) },
     middleware: getDefaultMiddleware({
         serializableCheck: {
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
     }),
 });
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
-export { persistor, store };
+export { store };

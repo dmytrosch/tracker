@@ -1,5 +1,5 @@
-const getAllTrackersSelector = (state) => state.trackers;
-const getTrackerById = (id) => (state) =>
-    state.trackers.find((tracker) => tracker.id === id);
+const getAllTrackersSelector = (state) => state.app.trackers;
+const getTrackerByIdSelector = (id) => (state) =>
+    state.app.trackers.find((tracker) => tracker.id === id);
 
-export { getAllTrackersSelector, getTrackerById };
+export { getAllTrackersSelector, getTrackerByIdSelector };

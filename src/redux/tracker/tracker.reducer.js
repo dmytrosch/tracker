@@ -1,4 +1,5 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { combineReducers, createReducer } from "@reduxjs/toolkit";
+import Tracker from "../../utils/TrackerClass";
 import {
     createTracker,
     startTracker,
@@ -7,12 +8,19 @@ import {
 } from "./tracker.actions";
 
 const init = [
-    { name: "first tracker", time: "12:58:45" },
-    { name: "first tracker", time: "12:58:45" },
-    { name: "first tracker", time: "12:58:45" },
+    {
+        id: "a64b2ff9-86b1-4c5f-be5e-67254fe63d8a",
+        name: "qwe",
+        startedAt:
+            "Date Mon Mar 15 2021 20:44:55 GMT+0200 (Восточная Европа, стандартное время)",
+    },
 ];
 const trackers = createReducer(init, {
-    [createTracker]: (state, { payload }) => {},
+    [createTracker]: (state, { payload: name }) => {
+        const newObject = new Tracker(name);
+        return [...state, newObject];
+    },
 });
+const reducer = combineReducers({ trackers });
 
-export default trackers;
+export default reducer;
