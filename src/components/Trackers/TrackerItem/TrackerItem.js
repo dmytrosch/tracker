@@ -12,12 +12,13 @@ export default function TrackerItem({ id }) {
     useEffect(() => {
         if (!isActive) {
             clearInterval(timerRef.current);
+            // console.log(timerRef.current);
+            return;
         }
         timerRef.current = setInterval(() => {
             const distance = getTimeDistance(startedAt, stoppedAt);
             setTimeDistance(distance);
         }, 1000);
-        return clearInterval(timerRef.current);
     }, [isActive]);
     return (
         <li>
