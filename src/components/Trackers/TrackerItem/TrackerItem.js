@@ -30,10 +30,6 @@ export default function TrackerItem({ id }) {
     const deleteTrackerHandler = () => {
         dispatch(removeTracker(id));
     };
-    // useEffect(() => {
-    //     const distance = getTimeDistance(trackerObj);
-    //     settimeDistanceNumbered(formatDate(distance));
-    // }, []);
     useEffect(() => {
         if (!isActive) {
             timeDistanceNumbered
