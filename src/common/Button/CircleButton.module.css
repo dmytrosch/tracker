@@ -17,6 +17,7 @@
     composes: button;
     width: 27px;
     height: 27px;
+    background-color: none;
 }
 .pauseButton{
     composes: trackerItemButtons;
