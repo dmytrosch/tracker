@@ -1,0 +1,14 @@
+.container{
+    min-width: 320px;
+    padding-top: 62px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.header{
+    margin-bottom: 55px;
+}
+.title{
+    font-size: 38px;
+    text-align: center;
+    margin: 0 auto;
+}

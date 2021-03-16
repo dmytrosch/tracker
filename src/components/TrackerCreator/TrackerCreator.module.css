@@ -1,0 +1,30 @@
+.container{
+    min-width: 300px;
+    height: 46px;
+    border: 1px solid rgb(155, 149, 149);
+    border-radius: 20px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 2px;
+}
+.input{
+    display: block;
+    border: none;
+    max-height: 80%;
+    outline: none;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+.createBtn{
+    border-radius: 50px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    outline: none;
+    background-color: #3faf6c;
+    background-image: url('../../assets/play_arrow-black-18dp.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
