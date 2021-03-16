@@ -4,6 +4,6 @@ const getAllTrackersSelector = (state) => {
 };
 
 const getTrackerByIdSelector = (id) => (state) =>
-    state.app.trackers.find((tracker) => tracker.id === id);
+    state.app.trackers.find((tracker) => tracker.id === id) || "";
 
 export { getAllTrackersSelector, getTrackerByIdSelector };
