@@ -1,22 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    resumeTracker,
+    stopTracker,
+} from "../../../redux/tracker/tracker.actions";
 import { getTrackerByIdSelector } from "../../../redux/tracker/tracker.selectors";
 import getTimeDistance from "../../../utils/getTimeDistance";
 
 export default function TrackerItem({ id }) {
-    const [isActive, setIsActive] = useState(true);
     const [timeDistance, setTimeDistance] = useState(null);
     const timerRef = useRef(null);
     const trackerObj = useSelector(getTrackerByIdSelector(id));
-    const { name, startedAt, stoppedAt } = trackerObj;
+    const { name, isActive } = trackerObj;
+    const dispatch = useDispatch();
+    const trackerActivityToggler = (e) => {
+        isActive ? dispatch(stopTracker(id)) : dispatch(resumeTracker(id));
+    };
     useEffect(() => {
         if (!isActive) {
             clearInterval(timerRef.current);
-            // console.log(timerRef.current);
             return;
         }
         timerRef.current = setInterval(() => {
-            const distance = getTimeDistance(startedAt, stoppedAt);
+            const distance = getTimeDistance(trackerObj);
             setTimeDistance(distance);
         }, 1000);
     }, [isActive]);
@@ -25,9 +31,9 @@ export default function TrackerItem({ id }) {
             <span>{name}</span>
             <span>{timeDistance}</span>
             {isActive ? (
-                <button onClick={() => setIsActive(false)}>Stop</button>
+                <button onClick={trackerActivityToggler}>Stop</button>
             ) : (
-                <button onClick={() => setIsActive(true)}>Start</button>
+                <button onClick={trackerActivityToggler}>Start</button>
             )}
 
             <button>Del</button>

@@ -5,6 +5,7 @@ import {
     startTracker,
     stopTracker,
     removeTracker,
+    resumeTracker,
 } from "./tracker.actions";
 
 // const init = [
@@ -19,6 +20,28 @@ const trackers = createReducer([], {
     [createTracker]: (state, { payload: name }) => {
         const newObject = new Tracker(name);
         return [...state, newObject];
+    },
+    [stopTracker]: (state, { payload: id }) => {
+        const currentTracker = state.find((tracker) => tracker.id === id);
+        const updatedTracker = {
+            ...currentTracker,
+            stoppedAt: Date.now(),
+            resumeTracker: null,
+            isActive: false,
+        };
+        const trackers = state.filter((tracker) => tracker.id !== id);
+        return [...trackers, updatedTracker];
+    },
+    [resumeTracker]: (state, { payload: id }) => {
+        const currentTracker = state.find((tracker) => tracker.id === id);
+        const updatedTracker = {
+            ...currentTracker,
+            stoppedAt: null,
+            resumedAt: Date.now(),
+            isActive: true,
+        };
+        const trackers = state.filter((tracker) => tracker.id !== id);
+        return [...trackers, updatedTracker];
     },
 });
 const reducer = combineReducers({ trackers });

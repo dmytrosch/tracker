@@ -11,15 +11,22 @@ function formatDate(duration) {
     const hours = duration.hours();
     const minutes = duration.minutes();
     const seconds = duration.seconds();
-    return `${normalizeNumber(hours)}:${normalizeNumber(minutes)}:${normalizeNumber(seconds)}`;
+    return `${normalizeNumber(hours)}:${normalizeNumber(
+        minutes
+    )}:${normalizeNumber(seconds)}`;
 }
 
-export default function getTimeDistance(startedAt, stoppedAt) {
-    if (!stoppedAt) {
-        const currentDate = Date.now();
-        const difference = currentDate - startedAt;
-        const duration = moment.duration(difference, "milliseconds");
+export default function getTimeDistance({startedAt, stoppedAt, resumedAt, isActive}) {
+    const currentDate = Date.now();
+    let difference;
 
-        return formatDate(duration);
+    if (!resumedAt) {
+        difference = currentDate - startedAt;
+    } else {
+        difference = (stoppedAt - startedAt) + (currentDate - resumedAt);
+        console.log("diff betw curr and stop", currentDate - stoppedAt);
+        console.log("diff betw stop and start", stoppedAt - startedAt);
     }
+    const duration = moment.duration(difference, "milliseconds");
+    return formatDate(duration);
 }
