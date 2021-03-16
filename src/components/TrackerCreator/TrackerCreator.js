@@ -17,6 +17,7 @@ export default function TrackerCreator() {
             <input
                 type="text"
                 onChange={(event) => setName(event.target.value)}
+                value={name}
                 className={styles.input}
                 placeholder="Enter tracker name..."
             />
