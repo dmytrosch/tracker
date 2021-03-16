@@ -2,6 +2,7 @@ import { duration } from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    removeTracker,
     resumeTracker,
     stopTracker,
 } from "../../../redux/tracker/tracker.actions";
@@ -16,10 +17,13 @@ export default function TrackerItem({ id }) {
     const trackerObj = useSelector(getTrackerByIdSelector(id));
     const { name, isActive } = trackerObj;
     const dispatch = useDispatch();
-    const trackerActivityToggler = (e) => {
+    const trackerActivityToggler = () => {
         isActive
             ? dispatch(stopTracker({ id, timeDistance }))
             : dispatch(resumeTracker(id));
+    };
+    const deleteTrackerHandler = () => {
+        dispatch(removeTracker(id));
     };
     useEffect(() => {
         if (!isActive) {
@@ -29,7 +33,7 @@ export default function TrackerItem({ id }) {
         timerRef.current = setInterval(() => {
             const distance = getTimeDistance(trackerObj);
             setTimeDistance(distance);
-            setTimeDistanceString(formatDate(distance))
+            setTimeDistanceString(formatDate(distance));
         }, 1000);
     }, [isActive]);
     return (
@@ -42,7 +46,7 @@ export default function TrackerItem({ id }) {
                 <button onClick={trackerActivityToggler}>Start</button>
             )}
 
-            <button>Del</button>
+            <button onClick={deleteTrackerHandler}>Del</button>
         </li>
     );
 }
