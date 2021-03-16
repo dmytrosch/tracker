@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/tracker/static/css/main.b3ab76cd.chunk.css",
+    "main.css": "/tracker/static/css/main.24009174.chunk.css",
     "main.js": "/tracker/static/js/main.a23e3380.chunk.js",
     "main.js.map": "/tracker/static/js/main.a23e3380.chunk.js.map",
     "runtime-main.js": "/tracker/static/js/runtime-main.4435a498.js",
@@ -8,7 +8,7 @@
     "static/js/2.ea64c658.chunk.js": "/tracker/static/js/2.ea64c658.chunk.js",
     "static/js/2.ea64c658.chunk.js.map": "/tracker/static/js/2.ea64c658.chunk.js.map",
     "index.html": "/tracker/index.html",
-    "static/css/main.b3ab76cd.chunk.css.map": "/tracker/static/css/main.b3ab76cd.chunk.css.map",
+    "static/css/main.24009174.chunk.css.map": "/tracker/static/css/main.24009174.chunk.css.map",
     "static/js/2.ea64c658.chunk.js.LICENSE.txt": "/tracker/static/js/2.ea64c658.chunk.js.LICENSE.txt",
     "static/media/CircleButton.module.css": "/tracker/static/media/remove_circle_outline-24px.7203e789.svg",
     "static/media/main.css": "/tracker/static/media/pt-sans-v12-latin-regular.ab33818f.woff"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.4435a498.js",
     "static/js/2.ea64c658.chunk.js",
-    "static/css/main.b3ab76cd.chunk.css",
+    "static/css/main.24009174.chunk.css",
     "static/js/main.a23e3380.chunk.js"
   ]
 }
