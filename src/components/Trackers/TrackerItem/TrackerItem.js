@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import {
     removeTracker,
@@ -8,6 +9,9 @@ import {
 import { getTrackerByIdSelector } from "../../../redux/tracker/tracker.selectors";
 import formatDate from "../../../utils/formatDate";
 import getTimeDistance from "../../../utils/getTimeDistance";
+import { ReactComponent as Pause } from "../../../assets/pause_circle_outline-24px.svg";
+import styles from "./TrackerItem.module.css";
+import CircleButton from "../../../common/Button/CircleButton";
 
 export default function TrackerItem({ id }) {
     const [timeDistance, setTimeDistance] = useState(null);
@@ -44,16 +48,24 @@ export default function TrackerItem({ id }) {
         }, 1000);
     }, [isActive]);
     return (
-        <li>
+        <li
+            className={classNames([
+                styles.container,
+                isActive && styles.active,
+            ])}
+        >
             <span>{name}</span>
             <span>{timeDistanceNumbered}</span>
-            {isActive ? (
-                <button onClick={trackerActivityToggler}>Stop</button>
-            ) : (
-                <button onClick={trackerActivityToggler}>Start</button>
-            )}
-
-            <button onClick={deleteTrackerHandler}>Del</button>
+            <div className={styles.buttons}>
+                <CircleButton
+                    name={isActive ? "pauseButton" : "resumeButton"}
+                    onClick={trackerActivityToggler}
+                />
+                <CircleButton
+                    name="deleteButton"
+                    onClick={deleteTrackerHandler}
+                />
+            </div>
         </li>
     );
 }

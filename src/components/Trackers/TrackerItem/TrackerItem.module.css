@@ -1,0 +1,19 @@
+.container{
+    border-top: 1px solid grey;
+    height: 62px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.active{
+    color: var(--greenColor);
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 66px;
+}

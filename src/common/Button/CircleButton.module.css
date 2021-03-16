@@ -1,0 +1,32 @@
+.button{
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.createTrackerButton{
+    composes: button;
+    height: 40px;
+    width: 40px;
+    background-color: #3faf6c;
+    background-image: url('../../assets/play_arrow-black-18dp.svg');    
+}
+.trackerItemButtons{
+    composes: button;
+    width: 27px;
+    height: 27px;
+}
+.pauseButton{
+    composes: trackerItemButtons;
+    background-image: url('../../assets/pause_circle_outline-24px.svg');
+}
+.resumeButton{
+    composes: trackerItemButtons;
+    background-image: url('../../assets/play_circle_outline-24px.svg');
+}
+.deleteButton{
+    composes: trackerItemButtons;
+    background-image: url('../../assets/remove_circle_outline-24px.svg');
+}
