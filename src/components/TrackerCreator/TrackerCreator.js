@@ -10,6 +10,7 @@ export default function TrackerCreator() {
     const creatingTrackerHandler = (event) => {
         event.preventDefault();
         dispatch(createTracker(name));
+        setName("");
     };
     return (
         <form onSubmit={creatingTrackerHandler} className={styles.container}>
