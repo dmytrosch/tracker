@@ -13,9 +13,9 @@ import { ReactComponent as Pause } from "../../../assets/pause_circle_outline-24
 import styles from "./TrackerItem.module.css";
 import CircleButton from "../../../common/Button/CircleButton";
 
-export default function TrackerItem({ id }) {
+export default function TrackerItem({ id, order }) {
     const [timeDistance, setTimeDistance] = useState(null);
-    const [timeDistanceNumbered, setTimeDistanceNumbered] = useState(null);
+    const [timeDistanceNumbered, setTimeDistanceNumbered] = useState();
     const timerRef = useRef(null);
     const trackerObj = useSelector(getTrackerByIdSelector(id));
     const { name, isActive, stoppedOnParsed } = trackerObj;
@@ -54,9 +54,13 @@ export default function TrackerItem({ id }) {
                 isActive && styles.active,
             ])}
         >
-            <span>{name}</span>
-            <span>{timeDistanceNumbered}</span>
-            <div className={styles.buttons}>
+            <div className={styles.trackerName}>
+                #{order}.&ensp;{name}
+            </div>
+            <div className={styles.rightContainer}>
+                <span>
+                    {timeDistanceNumbered ? timeDistanceNumbered : "00:00:00"}
+                </span>
                 <CircleButton
                     name={isActive ? "pauseButton" : "resumeButton"}
                     onClick={trackerActivityToggler}

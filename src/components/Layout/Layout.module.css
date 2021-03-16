@@ -1,8 +1,10 @@
 .container{
     min-width: 320px;
     padding-top: 62px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
+    margin: 0 auto;
 }
 .header{
     margin-bottom: 55px;
@@ -12,4 +14,15 @@
     text-align: center;
     margin: 0 auto;
     font-weight: 700;
+}
+
+@media (min-width: 560px){
+    .container{
+        padding-top: 83px;
+        padding-bottom: 32px;
+        max-width: 560px;
+    }
+    .title{
+        font-size: 48px;
+    }
 }
