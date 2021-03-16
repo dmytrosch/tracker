@@ -6,6 +6,6 @@ export default class Tracker {
         this.name = name ? name : "new tracker";
         this.isActive = true;
         this.startedAt = Date.now();
-        this.stoppedAt = null;
+        this.stoppedOn = null;
     }
 }

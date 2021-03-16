@@ -21,12 +21,11 @@ const trackers = createReducer([], {
         const newObject = new Tracker(name);
         return [...state, newObject];
     },
-    [stopTracker]: (state, { payload: id }) => {
+    [stopTracker]: (state, { payload: { id, timeDistance } }) => {
         const currentTracker = state.find((tracker) => tracker.id === id);
         const updatedTracker = {
             ...currentTracker,
-            stoppedAt: Date.now(),
-            resumeTracker: null,
+            stoppedOn: timeDistance,
             isActive: false,
         };
         const trackers = state.filter((tracker) => tracker.id !== id);
@@ -36,9 +35,8 @@ const trackers = createReducer([], {
         const currentTracker = state.find((tracker) => tracker.id === id);
         const updatedTracker = {
             ...currentTracker,
-            stoppedAt: null,
-            resumedAt: Date.now(),
             isActive: true,
+            resumedAt: Date.now(),
         };
         const trackers = state.filter((tracker) => tracker.id !== id);
         return [...trackers, updatedTracker];
