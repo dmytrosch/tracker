@@ -18,7 +18,7 @@ export default function getTimeDistance({
                 moment.duration(stoppedOn, "milliseconds");
         }
     } else {
-        difference = stoppedOn
+        difference = stoppedOn;
     }
     const duration = moment.duration(difference, "milliseconds");
     return duration;

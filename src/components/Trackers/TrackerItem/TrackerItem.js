@@ -9,7 +9,6 @@ import {
 import { getTrackerByIdSelector } from "../../../redux/tracker/tracker.selectors";
 import formatDate from "../../../utils/formatDate";
 import getTimeDistance from "../../../utils/getTimeDistance";
-import { ReactComponent as Pause } from "../../../assets/pause_circle_outline-24px.svg";
 import styles from "./TrackerItem.module.css";
 import CircleButton from "../../../common/Button/CircleButton";
 

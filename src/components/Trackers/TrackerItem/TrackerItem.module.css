@@ -21,11 +21,6 @@
     flex-shrink: 0;
     min-width: 147px;
 }
-.leftContainer{
-    display: flex;
-    justify-content: flex-start;
-    
-}
 .trackerName{
     flex: 2 2 120px;
     margin-right: 20px;

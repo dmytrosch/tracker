@@ -6,7 +6,8 @@ function normalizeNumber(number) {
 }
 
 export default function formatDate(duration) {
-    const hours = duration.hours();
+    const days = duration.days();
+    const hours = duration.hours() + 24 * days;
     const minutes = duration.minutes();
     const seconds = duration.seconds();
     return `${normalizeNumber(hours)}:${normalizeNumber(
