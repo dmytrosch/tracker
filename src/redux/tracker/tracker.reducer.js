@@ -1,5 +1,5 @@
 import { combineReducers, createReducer } from "@reduxjs/toolkit";
-import Tracker from "../../utils/TrackerClass";
+import newTracker from "../../utils/trackerObjectCreator";
 import {
     createTracker,
     stopTracker,
@@ -9,15 +9,18 @@ import {
 
 const trackers = createReducer([], {
     [createTracker]: (state, { payload: name }) => {
-        const newObject = new Tracker(name);
+        const newObject = newTracker(name);
         return [...state, newObject];
     },
-    [stopTracker]: (state, { payload: { id, timeDistance, timeDistanceString } }) => {
+    [stopTracker]: (
+        state,
+        { payload: { id, timeDistance, timeDistanceNumbered } }
+    ) => {
         const currentTracker = state.find((tracker) => tracker.id === id);
         const updatedTracker = {
             ...currentTracker,
             stoppedOn: timeDistance,
-            stoppedOnParsed: timeDistanceString,
+            stoppedOnParsed: timeDistanceNumbered,
             isActive: false,
         };
         const trackers = state.filter((tracker) => tracker.id !== id);

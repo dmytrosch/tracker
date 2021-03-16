@@ -1,4 +1,3 @@
-import { duration } from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,14 +11,20 @@ import getTimeDistance from "../../../utils/getTimeDistance";
 
 export default function TrackerItem({ id }) {
     const [timeDistance, setTimeDistance] = useState(null);
-    const [timeDistanceString, setTimeDistanceString] = useState(null);
+    const [timeDistanceNumbered, setTimeDistanceNumbered] = useState(null);
     const timerRef = useRef(null);
     const trackerObj = useSelector(getTrackerByIdSelector(id));
     const { name, isActive, stoppedOnParsed } = trackerObj;
     const dispatch = useDispatch();
     const trackerActivityToggler = () => {
         isActive
-            ? dispatch(stopTracker({ id, timeDistance, timeDistanceString }))
+            ? dispatch(
+                  stopTracker({
+                      id,
+                      timeDistance: timeDistance.toString(),
+                      timeDistanceNumbered,
+                  })
+              )
             : dispatch(resumeTracker(id));
     };
     const deleteTrackerHandler = () => {
@@ -27,25 +32,25 @@ export default function TrackerItem({ id }) {
     };
     // useEffect(() => {
     //     const distance = getTimeDistance(trackerObj);
-    //     setTimeDistanceString(formatDate(distance));
+    //     settimeDistanceNumbered(formatDate(distance));
     // }, []);
     useEffect(() => {
         if (!isActive) {
-            timeDistanceString
+            timeDistanceNumbered
                 ? clearInterval(timerRef.current)
-                : setTimeDistanceString(stoppedOnParsed);
+                : setTimeDistanceNumbered(stoppedOnParsed);
             return;
         }
         timerRef.current = setInterval(() => {
             const distance = getTimeDistance(trackerObj);
             setTimeDistance(distance);
-            setTimeDistanceString(formatDate(distance));
+            setTimeDistanceNumbered(formatDate(distance));
         }, 1000);
     }, [isActive]);
     return (
         <li>
             <span>{name}</span>
-            <span>{timeDistanceString}</span>
+            <span>{timeDistanceNumbered}</span>
             {isActive ? (
                 <button onClick={trackerActivityToggler}>Stop</button>
             ) : (
