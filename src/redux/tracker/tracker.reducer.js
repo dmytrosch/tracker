@@ -12,11 +12,12 @@ const trackers = createReducer([], {
         const newObject = new Tracker(name);
         return [...state, newObject];
     },
-    [stopTracker]: (state, { payload: { id, timeDistance } }) => {
+    [stopTracker]: (state, { payload: { id, timeDistance, timeDistanceString } }) => {
         const currentTracker = state.find((tracker) => tracker.id === id);
         const updatedTracker = {
             ...currentTracker,
             stoppedOn: timeDistance,
+            stoppedOnParsed: timeDistanceString,
             isActive: false,
         };
         const trackers = state.filter((tracker) => tracker.id !== id);

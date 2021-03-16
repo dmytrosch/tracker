@@ -12,22 +12,28 @@ import getTimeDistance from "../../../utils/getTimeDistance";
 
 export default function TrackerItem({ id }) {
     const [timeDistance, setTimeDistance] = useState(null);
-    const [timeDistanceString, setTimeDistanceString] = useState("00:00:00");
+    const [timeDistanceString, setTimeDistanceString] = useState(null);
     const timerRef = useRef(null);
     const trackerObj = useSelector(getTrackerByIdSelector(id));
-    const { name, isActive } = trackerObj;
+    const { name, isActive, stoppedOnParsed } = trackerObj;
     const dispatch = useDispatch();
     const trackerActivityToggler = () => {
         isActive
-            ? dispatch(stopTracker({ id, timeDistance }))
+            ? dispatch(stopTracker({ id, timeDistance, timeDistanceString }))
             : dispatch(resumeTracker(id));
     };
     const deleteTrackerHandler = () => {
         dispatch(removeTracker(id));
     };
+    // useEffect(() => {
+    //     const distance = getTimeDistance(trackerObj);
+    //     setTimeDistanceString(formatDate(distance));
+    // }, []);
     useEffect(() => {
         if (!isActive) {
-            clearInterval(timerRef.current);
+            timeDistanceString
+                ? clearInterval(timerRef.current)
+                : setTimeDistanceString(stoppedOnParsed);
             return;
         }
         timerRef.current = setInterval(() => {

@@ -1,13 +1,24 @@
 import moment from "moment";
 
-export default function getTimeDistance({ startedAt, stoppedOn, isActive, resumedAt }) {
+export default function getTimeDistance({
+    startedAt,
+    stoppedOn,
+    isActive,
+    resumedAt,
+}) {
     const currentDate = Date.now();
     let difference;
-
-    if (!stoppedOn) {
-        difference = currentDate - startedAt;
+    if (isActive) {
+        if (!stoppedOn) {
+            difference = currentDate - startedAt;
+        } else {
+            difference =
+                currentDate -
+                resumedAt +
+                moment.duration(stoppedOn, "milliseconds");
+        }
     } else {
-        difference = currentDate - resumedAt + moment.duration(stoppedOn, "milliseconds");
+        difference = stoppedOn
     }
     const duration = moment.duration(difference, "milliseconds");
     return duration;
