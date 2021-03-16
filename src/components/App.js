@@ -7,7 +7,7 @@ export default function App() {
     return (
         <Layout>
             <header>
-                <h1 style={{ margin: "0 auto" }}>tracker</h1>
+                <h1>tracker</h1>
             </header>
             <main>
                 <TrackerCreator />

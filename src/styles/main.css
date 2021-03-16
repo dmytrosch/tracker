@@ -1,0 +1,6 @@
+@import './normalize.css';
+@import './typography.css';
+
+body{
+    font-family: 'PT Sans', sans-serif;
+}
