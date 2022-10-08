@@ -5,7 +5,7 @@ import Layout from "./Layout/Layout";
 import { useDispatch } from "react-redux";
 import { setTrackers } from "../redux/tracker/tracker.actions";
 
-const ipcHelpers = window.electronServices;
+const ipcHelpers = window.electronService;
 
 export default function App() {
     const dispatch = useDispatch();
