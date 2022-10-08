@@ -6,6 +6,6 @@ const getAllTrackersSelector = (state) => {
 const getTrackerByIdSelector = (id) => (state) =>
     state.app.trackers.find((tracker) => tracker.id === id) || "";
 
-const getIsStateConfigurated = (state) => state.app.isStateConfigurated    
+const getIsStateConfigured = (state) => state.app.isStateConfigured    
 
-export { getAllTrackersSelector, getTrackerByIdSelector, getIsStateConfigurated };
+export { getAllTrackersSelector, getTrackerByIdSelector, getIsStateConfigured };

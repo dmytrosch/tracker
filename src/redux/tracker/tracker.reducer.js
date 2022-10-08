@@ -44,10 +44,10 @@ const trackers = createReducer([], {
         state.filter((tracker) => tracker.id !== id),
 });
 
-const isStateConfigurated = createReducer(false, {
+const isStateConfigured = createReducer(false, {
     [setTrackers]: () => true,
 });
 
-const reducer = combineReducers({ trackers, isStateConfigurated });
+const reducer = combineReducers({ trackers, isStateConfigured });
 
 export default reducer;
