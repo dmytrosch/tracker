@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import TrackerItem from "../TrackerItem/TrackerItem";
 import { useSelector } from "react-redux";
-import { getAllTrackersSelector } from "../../../redux/tracker/tracker.selectors";
+import { getAllTrackersSelector, getIsStateConfigurated } from "../../../redux/tracker/tracker.selectors";
 import styles from "./TrackerList.module.css";
 import "./animation.css";
 
@@ -10,13 +10,15 @@ const ipcHelpers = window.electronService
 
 export default function TrackerList() {
     const trackersList = useSelector(getAllTrackersSelector);
+    const isStateConfigurated = useSelector(getIsStateConfigurated)
 
     useEffect(()=>{
-        if(!ipcHelpers){
+        if(!ipcHelpers || !isStateConfigurated){
             return
         }
 
         ipcHelpers.sendUpdateTrackersListEvent(trackersList)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[trackersList])
     return (
         <>

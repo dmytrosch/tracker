@@ -16,9 +16,6 @@ export default function App() {
         }
 
         ipcHelpers.addOnLoadListener((_, { trackers }) => {
-            if (trackers.length === 0) {
-                return;
-            }
             dispatch(setTrackers(trackers));
         });
 

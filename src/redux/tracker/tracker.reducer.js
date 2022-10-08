@@ -9,8 +9,8 @@ import {
 } from "./tracker.actions";
 
 const trackers = createReducer([], {
-    [setTrackers]: (_, {payload}) => {
-        return payload
+    [setTrackers]: (_, { payload }) => {
+        return payload;
     },
     [createTracker]: (state, { payload: name }) => {
         const newObject = newTracker(name);
@@ -43,6 +43,11 @@ const trackers = createReducer([], {
     [removeTracker]: (state, { payload: id }) =>
         state.filter((tracker) => tracker.id !== id),
 });
-const reducer = combineReducers({ trackers });
+
+const isStateConfigurated = createReducer(false, {
+    [setTrackers]: () => true,
+});
+
+const reducer = combineReducers({ trackers, isStateConfigurated });
 
 export default reducer;
