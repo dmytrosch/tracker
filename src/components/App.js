@@ -4,6 +4,7 @@ import TrackerList from "./Trackers/TrackersList/TrackersList";
 import Layout from "./Layout/Layout";
 import { useDispatch } from "react-redux";
 import { setTrackers } from "../redux/tracker/tracker.actions";
+import showNotification from "../utils/showNotification";
 
 const ipcHelpers = window.electronService;
 
@@ -19,7 +20,11 @@ export default function App() {
             dispatch(setTrackers(trackers));
         });
 
-        return ipcHelpers.removeOnLoadListener
+        ipcHelpers.addNotificationsListener((_, { text }) =>
+            showNotification(text)
+        );
+
+        return ipcHelpers.removeGlobalListeners;
     }, []);
 
     return (

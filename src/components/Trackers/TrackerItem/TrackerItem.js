@@ -11,6 +11,7 @@ import formatDate from "../../../utils/formatDate";
 import getTimeDistance from "../../../utils/getTimeDistance";
 import styles from "./TrackerItem.module.css";
 import CircleButton from "../../../common/Button/CircleButton";
+import showNotification from "../../../utils/showNotification";
 
 export default function TrackerItem({ id, order }) {
     const [timeDistance, setTimeDistance] = useState(null);
@@ -20,18 +21,23 @@ export default function TrackerItem({ id, order }) {
     const { name, isActive, stoppedOnParsed } = trackerObj;
     const dispatch = useDispatch();
     const trackerActivityToggler = () => {
-        isActive
-            ? dispatch(
-                  stopTracker({
-                      id,
-                      timeDistance: timeDistance.toString(),
-                      timeDistanceNumbered,
-                  })
-              )
-            : dispatch(resumeTracker(id));
+        if (isActive) {
+            dispatch(
+                stopTracker({
+                    id,
+                    timeDistance: timeDistance.toString(),
+                    timeDistanceNumbered,
+                })
+            );
+            showNotification(`A tracker "${name}" stopped!`);
+        } else {
+            dispatch(resumeTracker(id));
+            showNotification(`A tracker "${name}" resumed!`);
+        }
     };
     const deleteTrackerHandler = () => {
         dispatch(removeTracker(id));
+        showNotification(`A tracker "${name}" removed!`);
     };
     useEffect(() => {
         if (!isActive) {

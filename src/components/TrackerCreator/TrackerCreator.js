@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import CircleButton from "../../common/Button/CircleButton";
 import { createTracker } from "../../redux/tracker/tracker.actions";
+import showNotification from "../../utils/showNotification";
 import styles from "./TrackerCreator.module.css";
 
 export default function TrackerCreator() {
@@ -10,6 +11,8 @@ export default function TrackerCreator() {
     const creatingTrackerHandler = (event) => {
         event.preventDefault();
         dispatch(createTracker(name));
+        showNotification(`A new tracker ${name || ''} was created`)
+
         setName("");
     };
     return (
