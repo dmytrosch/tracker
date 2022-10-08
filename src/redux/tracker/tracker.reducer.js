@@ -5,9 +5,13 @@ import {
     stopTracker,
     removeTracker,
     resumeTracker,
+    setTrackers,
 } from "./tracker.actions";
 
 const trackers = createReducer([], {
+    [setTrackers]: (_, {payload}) => {
+        return payload
+    },
     [createTracker]: (state, { payload: name }) => {
         const newObject = newTracker(name);
         return [...state, newObject];
