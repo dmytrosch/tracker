@@ -1,30 +1,9 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import {
-    persistReducer,
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { configureStore } from "@reduxjs/toolkit";
 import reducer from "./tracker/tracker.reducer";
 
-const trackersPersistConfig = {
-    key: "trackers",
-    storage,
-};
 
 const store = configureStore({
-    reducer: { app: persistReducer(trackersPersistConfig, reducer) },
-    middleware: getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-    }),
+    reducer: { app:  reducer },
 });
-const persistor = persistStore(store);
 
-export { store, persistor };
+export default store
