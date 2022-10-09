@@ -1,14 +1,20 @@
- const showNotification = (text) => {
-        const nativeNotification = new Notification("tracker", {
-            body: text,
-            icon: "logo.png",
-        });
+const ipcHelpers = window.electronService
 
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "visible") {
-                nativeNotification.close();
-            }
-        });
-    };
+const restoreApplication = () => ipcHelpers?.sendRestoreAppMessage()
 
-  export default showNotification
+const showNotification = (text) => {
+    const nativeNotification = new Notification("tracker", {
+        body: text,
+        icon: "logo.png",
+    });
+
+    nativeNotification.addEventListener("click", restoreApplication);
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+            nativeNotification.close();
+        }
+    });
+};
+
+export default showNotification;

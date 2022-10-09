@@ -24,6 +24,8 @@ export default function App() {
             showNotification(text)
         );
 
+        ipcHelpers.addOnResetDataListener(() => dispatch(setTrackers([])));
+
         return ipcHelpers.removeGlobalListeners;
     }, []);
 
