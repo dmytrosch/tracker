@@ -74,7 +74,9 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
         #{order}.&ensp;{name}
       </div>
       <div className={styles.rightContainer}>
-        <span>{timeDistanceNumbered ? timeDistanceNumbered : "Loading..."}</span>
+        <span>
+          {timeDistanceNumbered ? timeDistanceNumbered : "Loading..."}
+        </span>
         <CircleButton
           name={isActive ? "pauseButton" : "resumeButton"}
           onClick={trackerActivityToggler}
