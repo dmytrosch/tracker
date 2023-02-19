@@ -29,11 +29,8 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
     getTrackerByIdSelector(id)
   );
   const dispatch = useAppDispatch();
-  if (!trackerObj) {
-    return null;
-  }
 
-  const { name, isActive, stoppedOnParsed } = trackerObj;
+  const { name, isActive, stoppedOnParsed } = trackerObj || {};
   const trackerActivityToggler = (): void => {
     isActive && timeDistance && timeDistanceNumbered
       ? dispatch(
@@ -49,23 +46,32 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
     dispatch(removeTracker(id));
   };
 
+  const clearRefInterval = (): void => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current as NodeJS.Timer);
+    }
+  };
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (!trackerObj) {
-      return;
+      return () => {};
     }
 
     if (!isActive) {
       timeDistanceNumbered
-        ? clearInterval(timerRef.current as NodeJS.Timer)
+        ? clearRefInterval()
         : setTimeDistanceNumbered(stoppedOnParsed);
-      return;
+
+      return clearRefInterval;
     }
     timerRef.current = setInterval(() => {
       const distance = getTimeDistance(trackerObj);
       setTimeDistance(distance);
       setTimeDistanceNumbered(formatDate(distance));
     }, 1000);
+
+    return clearRefInterval;
   }, [isActive]);
 
   return (
