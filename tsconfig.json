@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "sourceMap": false,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "strict": true,
+    "outDir": "./public/js"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "noImplicitAny": true,
+  "include": ["src/**/*", "declaration.d.ts"]
+}
