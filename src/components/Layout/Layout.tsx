@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./Layout.module.css";
 
-export default function Layout({ children }) {
+interface IProps {
+  children: React.ReactNode
+}
+
+const Layout: React.FC<IProps> = ({ children })=> {
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -11,3 +15,5 @@ export default function Layout({ children }) {
         </div>
     );
 }
+
+export default Layout

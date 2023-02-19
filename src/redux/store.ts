@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
     persistReducer,
     persistStore,
@@ -9,13 +9,20 @@ import {
     PURGE,
     REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import reducer from "./tracker/tracker.reducer";
+import storage from "redux-persist/es/storage";
+import trackerReducer from "./tracker/tracker.reducer";
+
+type RootStoreType = ReturnType<typeof store.getState>;
+type AppDispatch = typeof store.dispatch;
 
 const trackersPersistConfig = {
     key: "trackers",
     storage,
 };
+
+const reducer = combineReducers({
+  trackers: trackerReducer,
+});
 
 const store = configureStore({
     reducer: { app: persistReducer(trackersPersistConfig, reducer) },
@@ -27,4 +34,4 @@ const store = configureStore({
 });
 const persistor = persistStore(store);
 
-export { store, persistor };
+export { store, persistor, RootStoreType, AppDispatch };
