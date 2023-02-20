@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import TrackerCreator from "./TrackerCreator/TrackerCreator";
 import TrackerList from "./Trackers/TrackersList/TrackersList";
 import Layout from "./Layout/Layout";
-import { useDispatch } from "react-redux";
 import { setTrackers } from "../redux/tracker/tracker.actions";
+import { useAppDispatch } from "../hooks/redux-hooks";
 import showNotification from "../utils/showNotification";
 
 const ipcHelpers = window.electronService;
 
-export default function App() {
-    const dispatch = useDispatch();
+const App: React.FC = () => {
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!ipcHelpers) {
@@ -28,11 +28,12 @@ export default function App() {
 
         return ipcHelpers.removeGlobalListeners;
     }, []);
-
     return (
         <Layout>
             <TrackerCreator />
             <TrackerList />
         </Layout>
     );
-}
+};
+
+export default App;

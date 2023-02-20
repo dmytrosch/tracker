@@ -1,25 +1,33 @@
 import React, { useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import TrackerItem from "../TrackerItem/TrackerItem";
-import { useSelector } from "react-redux";
-import { getAllTrackersSelector, getIsStateConfigured } from "../../../redux/tracker/tracker.selectors";
+import {
+    getAllTrackersSelector,
+    getIsStateConfigured,
+} from "../../../redux/tracker/tracker.selectors";
 import styles from "./TrackerList.module.css";
+import { TrackerListType } from "../../../types/types";
+import { useAppSelector } from "../../../hooks/redux-hooks";
+
 import "./animation.css";
 
-const ipcHelpers = window.electronService
+const ipcHelpers = window.electronService;
 
-export default function TrackerList() {
-    const trackersList = useSelector(getAllTrackersSelector);
-    const isStateConfigured = useSelector(getIsStateConfigured)
+const TrackerList: React.FC = () => {
+    const trackersList: TrackerListType = useAppSelector(
+        getAllTrackersSelector
+    );
+    const isStateConfigured = useAppSelector(getIsStateConfigured);
 
-    useEffect(()=>{
-        if(!ipcHelpers || !isStateConfigured){
-            return
+    useEffect(() => {
+        if (!ipcHelpers || !isStateConfigured) {
+            return;
         }
 
-        ipcHelpers.sendUpdateTrackersListEvent(trackersList)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[trackersList])
+        ipcHelpers.sendUpdateTrackersListEvent(trackersList);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [trackersList]);
+
     return (
         <>
             {trackersList.length ? (
@@ -39,4 +47,6 @@ export default function TrackerList() {
             )}
         </>
     );
-}
+};
+
+export default TrackerList;
