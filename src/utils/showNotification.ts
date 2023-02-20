@@ -1,8 +1,8 @@
-const ipcHelpers = window.electronService
+const ipcHelpers = window.electronService;
 
-const restoreApplication = () => ipcHelpers?.sendRestoreAppMessage()
+const restoreApplication = () => ipcHelpers?.sendRestoreAppMessage();
 
-const showNotification = (text) => {
+const showNotification = (text: string): void => {
     const nativeNotification = new Notification("tracker", {
         body: text,
         icon: "logo.png",
