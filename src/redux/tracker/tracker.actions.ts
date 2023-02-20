@@ -1,4 +1,4 @@
-import { trackerAcctions } from "./tracker.reducer";
+import { trackerActions } from "./tracker.reducer";
 
 export const {
     setTrackers,
@@ -6,4 +6,4 @@ export const {
     stopTracker,
     removeTracker,
     resumeTracker,
-} = trackerAcctions;
+} = trackerActions;

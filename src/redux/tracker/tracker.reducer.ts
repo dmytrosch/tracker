@@ -63,12 +63,13 @@ const trackersSlice = createSlice({
         },
         removeTracker: (state, { payload: id }: PayloadAction<IdType>) =>
             state.filter((tracker) => tracker.id !== id),
-        // });
     },
 });
 
+const trackerActions = trackersSlice.actions;
+
 const isStateConfigured = createReducer(false, {
-    setTrackers: () => true,
+    [trackerActions.setTrackers.toString()]: () => true,
 });
 
 const reducer = combineReducers({
@@ -76,5 +77,5 @@ const reducer = combineReducers({
     isStateConfigured,
 });
 
-export const trackerAcctions = trackersSlice.actions;
+export { trackerActions };
 export default reducer;
