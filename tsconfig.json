@@ -8,9 +8,7 @@
     "strict": true,
     "outDir": "./public/js"
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "noImplicitAny": true,
   "include": ["src/**/*", "declaration.d.ts"]
 }
