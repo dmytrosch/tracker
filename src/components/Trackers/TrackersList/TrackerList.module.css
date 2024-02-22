@@ -1,6 +1,6 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--greyColor);
-    border-bottom: 2px solid var(--greyColor);
+.container {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--greyColor);
+  border-bottom: 2px solid var(--greyColor);
 }

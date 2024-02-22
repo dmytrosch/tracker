@@ -1,18 +1,26 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TrackerListType, TrackerObjectType } from "../../types/types";
-import newTracker from "../../utils/trackerObjectCreator";
+import {
+  combineReducers,
+  createReducer,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit';
+import { TrackerListType, TrackerObjectType } from '../../types/types';
+import newTracker from '../../utils/trackerObjectCreator';
 
-type IdType = TrackerObjectType["id"];
+type IdType = TrackerObjectType['id'];
 
 const initialState: TrackerListType = [];
 
 const trackersSlice = createSlice({
-  name: "tracker",
+  name: 'tracker',
   initialState,
   reducers: {
+    setTrackers: (_, { payload }: PayloadAction<TrackerListType>) => {
+      return payload;
+    },
     createTracker: (
       state,
-      { payload: name }: PayloadAction<TrackerObjectType["name"]>
+      { payload: name }: PayloadAction<TrackerObjectType['name']>
     ) => {
       const newObject = newTracker(name);
       return [...state, newObject];
@@ -53,15 +61,21 @@ const trackersSlice = createSlice({
       const trackers = state.filter((tracker) => tracker.id !== id);
       return [...trackers, updatedTracker];
     },
-      removeTracker: (
-        state,
-        { payload: id }: PayloadAction<IdType>
-      ) => state.filter((tracker) => tracker.id !== id),
-    // });
+    removeTracker: (state, { payload: id }: PayloadAction<IdType>) =>
+      state.filter((tracker) => tracker.id !== id),
   },
 });
 
-// const reducer = combineReducers({ trackers });
+const trackerActions = trackersSlice.actions;
 
-export const trackerAcctions = trackersSlice.actions;
-export default trackersSlice.reducer;
+const isStateConfigured = createReducer(false, {
+  [trackerActions.setTrackers.toString()]: () => true,
+});
+
+const reducer = combineReducers({
+  trackers: trackersSlice.reducer,
+  isStateConfigured,
+});
+
+export { trackerActions };
+export default reducer;

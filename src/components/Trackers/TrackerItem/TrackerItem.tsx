@@ -1,21 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
-import classNames from "classnames";
+import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import {
   removeTracker,
   resumeTracker,
   stopTracker,
-} from "../../../redux/tracker/tracker.actions";
-import { getTrackerByIdSelector } from "../../../redux/tracker/tracker.selectors";
-import formatDate from "../../../utils/formatDate";
-import getTimeDistance from "../../../utils/getTimeDistance";
-import styles from "./TrackerItem.module.css";
-import CircleButton from "../../../common/Button/CircleButton";
-import { TrackerObjectType } from "../../../types/types";
-import { Duration } from "moment";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux-hooks";
+} from '../../../redux/tracker/tracker.actions';
+import { getTrackerByIdSelector } from '../../../redux/tracker/tracker.selectors';
+import formatDate from '../../../utils/formatDate';
+import getTimeDistance from '../../../utils/getTimeDistance';
+import styles from './TrackerItem.module.css';
+import CircleButton from '../../../common/Button/CircleButton';
+import { TrackerObjectType } from '../../../types/types';
+import { Duration } from 'moment';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import showNotification from '../../../utils/showNotification';
 
 interface IProps {
-  id: TrackerObjectType["id"];
+  id: TrackerObjectType['id'];
   order: number;
 }
 
@@ -32,18 +33,23 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
 
   const { name, isActive, stoppedOnParsed } = trackerObj || {};
   const trackerActivityToggler = (): void => {
-    isActive && timeDistance && timeDistanceNumbered
-      ? dispatch(
-          stopTracker({
-            id,
-            timeDistance: timeDistance.toString(),
-            timeDistanceNumbered,
-          })
-        )
-      : dispatch(resumeTracker(id));
+    if (isActive && timeDistance && timeDistanceNumbered) {
+      dispatch(
+        stopTracker({
+          id,
+          timeDistance: timeDistance.toString(),
+          timeDistanceNumbered,
+        })
+      );
+      showNotification(`A tracker "${name}" stopped!`);
+    } else {
+      dispatch(resumeTracker(id));
+      showNotification(`A tracker "${name}" resumed!`);
+    }
   };
   const deleteTrackerHandler = (): void => {
     dispatch(removeTracker(id));
+    showNotification(`A tracker "${name}" removed!`);
   };
 
   const clearRefInterval = (): void => {
@@ -81,10 +87,10 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
       </div>
       <div className={styles.rightContainer}>
         <span>
-          {timeDistanceNumbered ? timeDistanceNumbered : "Loading..."}
+          {timeDistanceNumbered ? timeDistanceNumbered : 'Loading...'}
         </span>
         <CircleButton
-          name={isActive ? "pauseButton" : "resumeButton"}
+          name={isActive ? 'pauseButton' : 'resumeButton'}
           onClick={trackerActivityToggler}
         />
         <CircleButton name="deleteButton" onClick={deleteTrackerHandler} />

@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./CircleButton.module.css";
+import React from 'react';
+import styles from './CircleButton.module.css';
 
 interface IProps {
   name: keyof typeof styles;

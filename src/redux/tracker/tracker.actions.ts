@@ -1,4 +1,9 @@
-import { trackerAcctions } from "./tracker.reducer";
+import { trackerActions } from './tracker.reducer';
 
-export const { createTracker, stopTracker, removeTracker, resumeTracker } =
-  trackerAcctions;
+export const {
+  setTrackers,
+  createTracker,
+  stopTracker,
+  removeTracker,
+  resumeTracker,
+} = trackerActions;
