@@ -27,7 +27,7 @@ const App: React.FC = () => {
     ipcHelpers.addOnResetDataListener(trackersStore.clearTrackers);
 
     return ipcHelpers.removeGlobalListeners;
-  }, []);
+  }, []); // eslint-disable-line
   return (
     <Layout>
       <TrackerCreator />

@@ -1,21 +1,28 @@
 import React from 'react';
 import styles from './Layout.module.css';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../StoreContext';
 
 interface IProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<IProps> = ({ children }) => {
+  const { ui } = useStores();
+  const isDark = ui.isDark;
+
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <ThemeSwitcher isDark onChange={(e) => {}} />
-        <h1 className={styles.title}>tracker</h1>
-      </header>
-      <main>{children}</main>
+    <div className={isDark ? styles.wrapperDark : styles.wrapperLight}>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <ThemeSwitcher isDark={isDark} onChange={ui.toggleTheme.bind(ui)} />
+          <h1 className={styles.title}>tracker</h1>
+        </header>
+        <main>{children}</main>
+      </div>
     </div>
   );
 };
 
-export default Layout;
+export default observer(Layout);

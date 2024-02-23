@@ -1,3 +1,5 @@
+import { THEMES } from '../constants';
+
 declare global {
   interface Window {
     electronService:
@@ -39,4 +41,6 @@ type TrackerObjectType = {
 
 type TrackerListType = TrackerObjectType[];
 
-export { TrackerObjectType, TrackerListType };
+type Theme = (typeof THEMES)[keyof typeof THEMES];
+
+export { TrackerObjectType, TrackerListType, Theme };

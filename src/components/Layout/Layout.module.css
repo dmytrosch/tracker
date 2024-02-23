@@ -1,3 +1,18 @@
+.wrapper {
+  height: 100vh;
+  width: 100%;
+}
+
+.wrapperDark {
+  composes: wrapper;
+  background-color: #b3b3b3;
+}
+
+.wrapperLight {
+  composes: wrapper;
+  background-color: #fff;
+}
+
 .container {
   min-width: 320px;
   padding-top: 62px;
