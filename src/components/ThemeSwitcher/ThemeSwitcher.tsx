@@ -19,7 +19,6 @@ const ThemeSwitcher: React.FC<IProps> = ({
     >
       <input
         type="checkbox"
-        defaultChecked={isDark}
         onChange={onChange}
         checked={isDark}
       />
