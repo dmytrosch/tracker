@@ -1,23 +1,41 @@
 import { makeAutoObservable } from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
 import { TrackerListType, TrackerObjectType } from '../types/types';
 import newTracker from '../utils/trackerObjectCreator';
+import { isElectron } from '../constants';
+import reduxPersistedTrackersMigration from '../utils/reduxPersistedTrackersMigration';
 
 type IdType = TrackerObjectType['id'];
 
 class TrackersStore {
   trackers: TrackerListType = [];
+  isStateConfigured?;
 
   constructor() {
-    console.log(this);
+    if (isElectron) {
+      this.isStateConfigured = false;
+    } else {
+      const savedTrackers = reduxPersistedTrackersMigration();
+      if (savedTrackers) {
+        this.trackers = savedTrackers;
+      }
+    }
 
     makeAutoObservable(this);
+    makePersistable(this, {
+      storage: window.localStorage,
+      name: 'mobx:store',
+      properties: ['trackers'],
+    });
   }
 
   private updateExistingTracker(updatedTracker: TrackerObjectType): void {
-    const trackers = this.trackers.filter(
-      (tracker) => tracker.id !== updatedTracker.id
-    );
-    this.trackers = [...trackers, updatedTracker];
+    this.trackers = this.trackers.map((tracker) => {
+      if (tracker.id !== updatedTracker.id) {
+        return tracker;
+      }
+      return updatedTracker;
+    });
   }
 
   findTrackerById(id: IdType): TrackerObjectType | undefined {
@@ -26,7 +44,6 @@ class TrackersStore {
 
   createTracker(name: TrackerObjectType['name'] | null = null): void {
     const newObject = newTracker(name);
-    console.log(this);
 
     this.trackers = [...this.trackers, newObject];
   }
