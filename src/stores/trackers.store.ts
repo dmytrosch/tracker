@@ -19,14 +19,14 @@ class TrackersStore {
       if (savedTrackers) {
         this.trackers = savedTrackers;
       }
+      makePersistable(this, {
+        storage: window.localStorage,
+        name: 'mobx:store',
+        properties: ['trackers'],
+      });
     }
 
     makeAutoObservable(this);
-    makePersistable(this, {
-      storage: window.localStorage,
-      name: 'mobx:store',
-      properties: ['trackers'],
-    });
   }
 
   private updateExistingTracker(updatedTracker: TrackerObjectType): void {
