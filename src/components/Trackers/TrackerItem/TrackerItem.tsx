@@ -21,7 +21,7 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
   const [timeDistanceNumbered, setTimeDistanceNumbered] = useState<
     string | null
   >();
-  const timerRef = useRef<NodeJS.Timer | null>(null);
+  const timerRef = useRef<number | null>(null);
 
   const { trackers, ui } = useStores();
   const trackerObj = computed(() => trackers.findTrackerById(id)).get();
@@ -49,7 +49,7 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
 
   const clearRefInterval = (): void => {
     if (timerRef.current) {
-      clearInterval(timerRef.current as NodeJS.Timer);
+      window.clearInterval(timerRef.current);
     }
   };
 
@@ -66,7 +66,7 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
 
       return clearRefInterval;
     }
-    timerRef.current = setInterval(() => {
+    timerRef.current = window.setInterval(() => {
       const distance = getTimeDistance(trackerObj);
       setTimeDistance(distance);
       setTimeDistanceNumbered(formatDate(distance));
