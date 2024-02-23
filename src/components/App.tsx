@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import TrackerCreator from './TrackerCreator/TrackerCreator';
 import TrackerList from './Trackers/TrackersList/TrackersList';
 import Layout from './Layout/Layout';
-import { setTrackers } from '../redux/tracker/tracker.actions';
-import { useAppDispatch } from '../hooks/redux-hooks';
 import showNotification from '../utils/showNotification';
+import { useStores } from './StoreContext';
 
 const ipcHelpers = window.electronService;
 
 const App: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { trackers: trackersStore } = useStores();
 
   useEffect(() => {
     if (!ipcHelpers) {
@@ -17,14 +17,14 @@ const App: React.FC = () => {
     }
 
     ipcHelpers.addOnLoadListener((_, { trackers }) => {
-      dispatch(setTrackers(trackers));
+      trackersStore.setTrackers(trackers);
     });
 
     ipcHelpers.addNotificationsListener((_, { text }) =>
       showNotification(text)
     );
 
-    ipcHelpers.addOnResetDataListener(() => dispatch(setTrackers([])));
+    ipcHelpers.addOnResetDataListener(trackersStore.clearTrackers);
 
     return ipcHelpers.removeGlobalListeners;
   }, []);
@@ -36,4 +36,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default observer(App);

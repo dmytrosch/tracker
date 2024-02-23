@@ -1,19 +1,21 @@
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
+import { useStores } from '../StoreContext';
 import CircleButton from '../../common/Button/CircleButton';
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { createTracker } from '../../redux/tracker/tracker.actions';
 import showNotification from '../../utils/showNotification';
 import styles from './TrackerCreator.module.css';
+
 
 type NameState = [string, (x: string) => void];
 
 const TrackerCreator: React.FC = () => {
   const [name, setName]: NameState = useState('');
-  const dispatch = useAppDispatch();
+  const { trackers } = useStores();
+  
 
   const creatingTrackerHandler: React.FormEventHandler = (event) => {
     event.preventDefault();
-    dispatch(createTracker(name));
+    trackers.createTracker(name);
     showNotification(`A new tracker ${name || ''} was created`);
 
     setName('');
@@ -34,4 +36,4 @@ const TrackerCreator: React.FC = () => {
   );
 };
 
-export default TrackerCreator;
+export default observer(TrackerCreator);

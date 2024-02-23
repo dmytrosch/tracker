@@ -1,19 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { Duration } from 'moment';
+import { computed } from 'mobx';
 import classNames from 'classnames';
-import {
-  removeTracker,
-  resumeTracker,
-  stopTracker,
-} from '../../../redux/tracker/tracker.actions';
-import { getTrackerByIdSelector } from '../../../redux/tracker/tracker.selectors';
 import formatDate from '../../../utils/formatDate';
 import getTimeDistance from '../../../utils/getTimeDistance';
 import styles from './TrackerItem.module.css';
 import CircleButton from '../../../common/Button/CircleButton';
 import { TrackerObjectType } from '../../../types/types';
-import { Duration } from 'moment';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import showNotification from '../../../utils/showNotification';
+import { useStores } from '../../StoreContext';
 
 interface IProps {
   id: TrackerObjectType['id'];
@@ -26,29 +22,28 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
     string | null
   >();
   const timerRef = useRef<NodeJS.Timer | null>(null);
-  const trackerObj: TrackerObjectType | null = useAppSelector(
-    getTrackerByIdSelector(id)
-  );
-  const dispatch = useAppDispatch();
+
+  const { trackers } = useStores();
+  const trackerObj = computed(() => trackers.findTrackerById(id)).get();
 
   const { name, isActive, stoppedOnParsed } = trackerObj || {};
+
   const trackerActivityToggler = (): void => {
     if (isActive && timeDistance && timeDistanceNumbered) {
-      dispatch(
-        stopTracker({
-          id,
-          timeDistance: timeDistance.toString(),
-          timeDistanceNumbered,
-        })
-      );
+      trackers.stopTracker({
+        id,
+        timeDistance: timeDistance.toString(),
+        timeDistanceNumbered,
+      });
+
       showNotification(`A tracker "${name}" stopped!`);
     } else {
-      dispatch(resumeTracker(id));
+      trackers.resumeTracker(id);
       showNotification(`A tracker "${name}" resumed!`);
     }
   };
   const deleteTrackerHandler = (): void => {
-    dispatch(removeTracker(id));
+    trackers.removeTracker(id);
     showNotification(`A tracker "${name}" removed!`);
   };
 
@@ -99,4 +94,4 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
   );
 };
 
-export default TrackerItem;
+export default observer(TrackerItem)

@@ -1,7 +1,7 @@
-import trackerStore from './tracker.store';
+import TrackersStore from './trackers.store';
 
 class RootStore {
-  tracker = trackerStore;
+  trackers = new TrackersStore();
 }
 
-export default new RootStore();
+export default RootStore;
