@@ -6,7 +6,7 @@ import RootStore from './stores';
 
 import './styles/main.css';
 
-const store = new RootStore()
+const store = new RootStore();
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>

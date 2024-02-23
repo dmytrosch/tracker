@@ -6,7 +6,6 @@ import TrackerItem from '../TrackerItem/TrackerItem';
 import styles from './TrackerList.module.css';
 import './animation.css';
 
-
 const ipcHelpers = window.electronService;
 
 const TrackerList: React.FC = () => {
@@ -41,4 +40,4 @@ const TrackerList: React.FC = () => {
   );
 };
 
-export default observer(TrackerList)
+export default observer(TrackerList);

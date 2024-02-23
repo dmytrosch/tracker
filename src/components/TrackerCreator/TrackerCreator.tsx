@@ -5,13 +5,11 @@ import CircleButton from '../../common/Button/CircleButton';
 import showNotification from '../../utils/showNotification';
 import styles from './TrackerCreator.module.css';
 
-
 type NameState = [string, (x: string) => void];
 
 const TrackerCreator: React.FC = () => {
   const [name, setName]: NameState = useState('');
   const { trackers } = useStores();
-  
 
   const creatingTrackerHandler: React.FormEventHandler = (event) => {
     event.preventDefault();

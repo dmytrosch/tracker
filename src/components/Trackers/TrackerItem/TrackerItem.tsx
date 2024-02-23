@@ -94,4 +94,4 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
   );
 };
 
-export default observer(TrackerItem)
+export default observer(TrackerItem);
