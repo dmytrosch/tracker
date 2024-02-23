@@ -1,9 +1,11 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS, reaction } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import { TrackerListType, TrackerObjectType } from '../types/types';
 import newTracker from '../utils/trackerObjectCreator';
 import { isElectron } from '../constants';
 import reduxPersistedTrackersMigration from '../utils/reduxPersistedTrackersMigration';
+
+const ipcHelpers = window.electronService;
 
 type IdType = TrackerObjectType['id'];
 
@@ -12,8 +14,20 @@ class TrackersStore {
   isStateConfigured?;
 
   constructor() {
+    makeAutoObservable(this);
     if (isElectron) {
       this.isStateConfigured = false;
+
+      reaction(
+        () => this.trackers,
+        (trackers) => {
+          if (!ipcHelpers || !this.isStateConfigured || !trackers.length) {
+            return;
+          }
+
+          ipcHelpers.sendUpdateTrackersListEvent(toJS(trackers));
+        }
+      );
     } else {
       const savedTrackers = reduxPersistedTrackersMigration();
       if (savedTrackers) {
@@ -25,8 +39,6 @@ class TrackersStore {
         properties: ['trackers'],
       });
     }
-
-    makeAutoObservable(this);
   }
 
   private updateExistingTracker(updatedTracker: TrackerObjectType): void {
@@ -85,6 +97,7 @@ class TrackersStore {
 
   setTrackers(trackers: TrackerListType): void {
     this.trackers = trackers;
+    this.isStateConfigured = true;
   }
 
   clearTrackers(): void {
