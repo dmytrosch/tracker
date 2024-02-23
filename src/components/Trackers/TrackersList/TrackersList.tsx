@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
+import { useStores } from '../../StoreContext';
+import { observer } from 'mobx-react-lite';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TrackerItem from '../TrackerItem/TrackerItem';
-import {
-  getAllTrackersSelector,
-  getIsStateConfigured,
-} from '../../../redux/tracker/tracker.selectors';
 import styles from './TrackerList.module.css';
-import { TrackerListType } from '../../../types/types';
-import { useAppSelector } from '../../../hooks/redux-hooks';
-
 import './animation.css';
 
 const ipcHelpers = window.electronService;
 
 const TrackerList: React.FC = () => {
-  const trackersList: TrackerListType = useAppSelector(getAllTrackersSelector);
-  const isStateConfigured = useAppSelector(getIsStateConfigured);
+  const {
+    trackers: { trackers: trackersList },
+  } = useStores();
+  const isStateConfigured = true;
 
   useEffect(() => {
     if (!ipcHelpers || !isStateConfigured) {
@@ -43,4 +40,4 @@ const TrackerList: React.FC = () => {
   );
 };
 
-export default TrackerList;
+export default observer(TrackerList);

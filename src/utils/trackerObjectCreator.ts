@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { TrackerObjectType } from '../types/types';
 
 //creating w/o prototype inherit of class
-export default function trackerCreator(name: string): TrackerObjectType {
+export default function trackerCreator(name: string | null): TrackerObjectType {
   return {
     id: uuid(),
     name: name

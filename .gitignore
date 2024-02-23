@@ -24,3 +24,5 @@ yarn-error.log*
 
 # JS-to-TS compiled files
 public/js
+
+.vscode/settings.json
