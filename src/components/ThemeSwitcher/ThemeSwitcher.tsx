@@ -4,16 +4,11 @@ import styles from './ThemeSwitcher.module.css';
 interface IProps {
   isDark: boolean;
   onChange: React.ChangeEventHandler;
-  invertedIconLogic?: boolean;
 }
-const defaultOptions = {
-  invertedIconLogic: false,
-};
 
 const ThemeSwitcher: React.FC<IProps> = ({
   isDark,
   onChange,
-  invertedIconLogic = defaultOptions.invertedIconLogic,
 }) => (
   // eslint-disable-next-line jsx-a11y/label-has-associated-control
   <div className={styles.switcherWrapper}>
@@ -24,8 +19,9 @@ const ThemeSwitcher: React.FC<IProps> = ({
     >
       <input
         type="checkbox"
-        defaultChecked={invertedIconLogic ? !isDark : isDark}
+        defaultChecked={isDark}
         onChange={onChange}
+        checked={isDark}
       />
       <div />
     </label>
