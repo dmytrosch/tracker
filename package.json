@@ -16,14 +16,14 @@
     "@types/redux-persist": "^4.3.1",
     "@types/uuid": "^9.0.0",
     "classnames": "^2.3.2",
+    "mobx": "^6.12.0",
+    "mobx-persist-store": "^1.1.4",
+    "mobx-react-lite": "^4.0.5",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-redux": "^8.0.5",
     "react-scripts": "5.0.0",
     "react-transition-group": "^4.4.1",
-    "redux": "^4.2.1",
-    "redux-persist": "^6.0.0",
     "typescript": "^4.9.5",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.1"
@@ -35,7 +35,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "format": "npx prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@types/react-transition-group": "^4.4.5",
     "gh-pages": "^3.1.0",
+    "prettier": "^3.2.5",
     "typescript-plugin-css-modules": "^4.1.1"
   }
 }

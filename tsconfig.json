@@ -6,11 +6,10 @@
     "allowSyntheticDefaultImports": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "strict": true,
-    "outDir": "./public/js"
+    "outDir": "./public/js",
+    "target": "es5"
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "noImplicitAny": true,
   "include": ["src/**/*", "declaration.d.ts"]
 }

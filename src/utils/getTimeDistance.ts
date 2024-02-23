@@ -1,5 +1,5 @@
-import moment, { Duration } from "moment";
-import { TrackerObjectType } from "../types/types";
+import moment, { Duration } from 'moment';
+import { TrackerObjectType } from '../types/types';
 
 export default function getTimeDistance({
   startedAt,
@@ -16,11 +16,11 @@ export default function getTimeDistance({
       difference =
         currentDate -
         resumedAt +
-        moment.duration(stoppedOn, "milliseconds").asMilliseconds();
+        moment.duration(stoppedOn, 'milliseconds').asMilliseconds();
     }
   } else {
     difference = stoppedOn;
   }
-  const duration = moment.duration(difference, "milliseconds");
+  const duration = moment.duration(difference, 'milliseconds');
   return duration;
 }

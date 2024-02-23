@@ -1,22 +1,24 @@
-import React, { useState } from "react";
-import CircleButton from "../../common/Button/CircleButton";
-import { useAppDispatch } from "../../hooks/redux-hooks";
-import { createTracker } from "../../redux/tracker/tracker.actions";
-import showNotification from "../../utils/showNotification";
-import styles from "./TrackerCreator.module.css";
+import { observer } from 'mobx-react-lite';
+import React, { useState } from 'react';
+import { useStores } from '../StoreContext';
+import CircleButton from '../../common/Button/CircleButton';
+import showNotification from '../../utils/showNotification';
+import styles from './TrackerCreator.module.css';
 
 type NameState = [string, (x: string) => void];
 
 const TrackerCreator: React.FC = () => {
-  const [name, setName]: NameState = useState("");
-  const dispatch = useAppDispatch();
+  const [name, setName]: NameState = useState('');
+  const { trackers, ui } = useStores();
+
+  const inputClassName = ui.isDark ? styles.inputDark : styles.inputLight;
 
   const creatingTrackerHandler: React.FormEventHandler = (event) => {
     event.preventDefault();
-    dispatch(createTracker(name));
-    showNotification(`A new tracker ${name || ''} was created`)
+    trackers.createTracker(name);
+    showNotification(`A new tracker ${name || ''} was created`);
 
-    setName("");
+    setName('');
   };
   return (
     <form onSubmit={creatingTrackerHandler} className={styles.container}>
@@ -26,12 +28,16 @@ const TrackerCreator: React.FC = () => {
           setName(event.target.value)
         }
         value={name}
-        className={styles.input}
+        className={inputClassName}
         placeholder="Enter tracker name..."
       />
-      <CircleButton name="createTrackerButton" type="submit" />
+      <CircleButton
+        name="createTrackerButton"
+        type="submit"
+        isDark={ui.isDark}
+      />
     </form>
   );
 };
 
-export default TrackerCreator;
+export default observer(TrackerCreator);
