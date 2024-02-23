@@ -24,7 +24,8 @@ const App: React.FC = () => {
       showNotification(text)
     );
 
-    ipcHelpers.addOnResetDataListener(trackersStore.clearTrackers);
+    ipcHelpers.addOnResetDataListener(() => trackersStore.clearTrackers())
+
 
     return ipcHelpers.removeGlobalListeners;
   }, []); // eslint-disable-line
