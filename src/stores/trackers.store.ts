@@ -21,7 +21,7 @@ class TrackersStore {
       }
       makePersistable(this, {
         storage: window.localStorage,
-        name: 'mobx:store',
+        name: 'mobx:store:trackers',
         properties: ['trackers'],
       });
     }
