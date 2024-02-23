@@ -27,6 +27,7 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
   const trackerObj = computed(() => trackers.findTrackerById(id)).get();
 
   const { name, isActive, stoppedOnParsed } = trackerObj || {};
+  const isDark = ui.isDark;
 
   const trackerActivityToggler = (): void => {
     if (isActive && timeDistance && timeDistanceNumbered) {
@@ -52,6 +53,14 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
       window.clearInterval(timerRef.current);
     }
   };
+
+  const buttonName = isActive
+    ? isDark
+      ? 'pauseButtonLight'
+      : 'pauseButtonDark'
+    : isDark
+      ? 'resumeButtonLight'
+      : 'resumeButtonDark';
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -85,14 +94,14 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
           {timeDistanceNumbered ? timeDistanceNumbered : 'Loading...'}
         </span>
         <CircleButton
-          name={isActive ? 'pauseButton' : 'resumeButton'}
+          name={buttonName}
           onClick={trackerActivityToggler}
-          isDark={ui.isDark}
+          isDark={isDark}
         />
         <CircleButton
           name="deleteButton"
           onClick={deleteTrackerHandler}
-          isDark={ui.isDark}
+          isDark={isDark}
         />
       </div>
     </li>

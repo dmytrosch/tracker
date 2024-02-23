@@ -28,13 +28,21 @@
   height: 27px;
   background-color: none;
 }
-.pauseButton {
+.pauseButtonDark {
   composes: trackerItemButtons;
   background-image: url('../../assets/pause_circle_outline-24px.svg');
 }
-.resumeButton {
+.pauseButtonLight {
+  composes: trackerItemButtons;
+  background-image: url('../../assets/pause_circle_outline-24px-light.svg');
+}
+.resumeButtonDark {
   composes: trackerItemButtons;
   background-image: url('../../assets/play_circle_outline-24px.svg');
+}
+.resumeButtonLight {
+  composes: trackerItemButtons;
+  background-image: url('../../assets/play_circle_outline-24px-light.svg');
 }
 .deleteButton {
   composes: trackerItemButtons;
