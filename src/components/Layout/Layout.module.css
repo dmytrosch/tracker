@@ -5,12 +5,12 @@
 
 .wrapperDark {
   composes: wrapper;
-  background-color: #b3b3b3;
+  background-color: var(--dark-color);
 }
 
 .wrapperLight {
   composes: wrapper;
-  background-color: #fff;
+  background-color: var(--light-color);
 }
 
 .container {
@@ -29,6 +29,16 @@
   text-align: center;
   margin: 0 auto;
   font-weight: 700;
+}
+
+.titleDark {
+  composes: title;
+  color: var(--light-color);
+}
+
+.titleLight {
+  composes: title;
+  color: var(--dark-color);
 }
 
 @media (min-width: 560px) {

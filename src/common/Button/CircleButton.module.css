@@ -6,6 +6,15 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.buttonLight {
+  background-color: var(--light-color);
+}
+
+.buttonDark {
+  background-color: var(--dark-color);
+}
+
 .createTrackerButton {
   composes: button;
   height: 40px;

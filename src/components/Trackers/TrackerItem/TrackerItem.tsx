@@ -23,7 +23,7 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
   >();
   const timerRef = useRef<NodeJS.Timer | null>(null);
 
-  const { trackers } = useStores();
+  const { trackers, ui } = useStores();
   const trackerObj = computed(() => trackers.findTrackerById(id)).get();
 
   const { name, isActive, stoppedOnParsed } = trackerObj || {};
@@ -87,8 +87,13 @@ const TrackerItem: React.FC<IProps> = ({ id, order }) => {
         <CircleButton
           name={isActive ? 'pauseButton' : 'resumeButton'}
           onClick={trackerActivityToggler}
+          isDark={ui.isDark}
         />
-        <CircleButton name="deleteButton" onClick={deleteTrackerHandler} />
+        <CircleButton
+          name="deleteButton"
+          onClick={deleteTrackerHandler}
+          isDark={ui.isDark}
+        />
       </div>
     </li>
   );

@@ -9,7 +9,9 @@ type NameState = [string, (x: string) => void];
 
 const TrackerCreator: React.FC = () => {
   const [name, setName]: NameState = useState('');
-  const { trackers } = useStores();
+  const { trackers, ui } = useStores();
+
+  const inputClassName = ui.isDark ? styles.inputDark : styles.inputLight;
 
   const creatingTrackerHandler: React.FormEventHandler = (event) => {
     event.preventDefault();
@@ -26,10 +28,14 @@ const TrackerCreator: React.FC = () => {
           setName(event.target.value)
         }
         value={name}
-        className={styles.input}
+        className={inputClassName}
         placeholder="Enter tracker name..."
       />
-      <CircleButton name="createTrackerButton" type="submit" />
+      <CircleButton
+        name="createTrackerButton"
+        type="submit"
+        isDark={ui.isDark}
+      />
     </form>
   );
 };

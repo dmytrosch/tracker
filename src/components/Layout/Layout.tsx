@@ -12,12 +12,15 @@ const Layout: React.FC<IProps> = ({ children }) => {
   const { ui } = useStores();
   const isDark = ui.isDark;
 
+  const wrapperClassName = isDark ? styles.wrapperDark : styles.wrapperLight;
+  const titleClassName = isDark ? styles.titleDark : styles.titleLight;
+
   return (
-    <div className={isDark ? styles.wrapperDark : styles.wrapperLight}>
+    <div className={wrapperClassName}>
       <div className={styles.container}>
         <header className={styles.header}>
           <ThemeSwitcher isDark={isDark} onChange={ui.toggleTheme.bind(ui)} />
-          <h1 className={styles.title}>tracker</h1>
+          <h1 className={titleClassName}>tracker</h1>
         </header>
         <main>{children}</main>
       </div>
