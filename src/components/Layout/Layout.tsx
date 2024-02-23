@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./Layout.module.css";
+import React from 'react';
+import styles from './Layout.module.css';
 
 interface IProps {
   children: React.ReactNode;
