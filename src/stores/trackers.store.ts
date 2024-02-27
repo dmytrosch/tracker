@@ -57,7 +57,7 @@ class TrackersStore {
   createTracker(name: TrackerObjectType['name'] | null = null): void {
     const newObject = newTracker(name);
 
-    this.trackers = [...this.trackers, newObject];
+    this.trackers = [newObject, ...this.trackers];
   }
 
   stopTracker({
