@@ -34,7 +34,7 @@ type TrackerObjectType = {
   name: string;
   isActive: boolean;
   startedAt: number;
-  stoppedOn: string | null;
+  stoppedOn?: string;
   resumedAt?: number;
   stoppedOnParsed?: string;
 };
